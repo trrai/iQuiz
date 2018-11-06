@@ -16,6 +16,10 @@
 		B88ECEC021865C20007999DC /* iQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88ECEBF21865C20007999DC /* iQuizUITests.swift */; };
 		B88ECECE2186A053007999DC /* QuizCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88ECECD2186A053007999DC /* QuizCell.swift */; };
 		B88ECED02186C8BD007999DC /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88ECECF2186C8BD007999DC /* Quiz.swift */; };
+		B88ECED2218D5B04007999DC /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88ECED1218D5B04007999DC /* AppData.swift */; };
+		B88ECED4218D5F54007999DC /* QAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88ECED3218D5F54007999DC /* QAViewController.swift */; };
+		B88ECED6218D7976007999DC /* AnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88ECED5218D7976007999DC /* AnswerViewController.swift */; };
+		B88ECED8218D86E9007999DC /* FinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88ECED7218D86E9007999DC /* FinishedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		B88ECEC121865C20007999DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B88ECECD2186A053007999DC /* QuizCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizCell.swift; sourceTree = "<group>"; };
 		B88ECECF2186C8BD007999DC /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		B88ECED1218D5B04007999DC /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		B88ECED3218D5F54007999DC /* QAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAViewController.swift; sourceTree = "<group>"; };
+		B88ECED5218D7976007999DC /* AnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewController.swift; sourceTree = "<group>"; };
+		B88ECED7218D86E9007999DC /* FinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +117,10 @@
 				B88ECEA621865C20007999DC /* Assets.xcassets */,
 				B88ECEA821865C20007999DC /* LaunchScreen.storyboard */,
 				B88ECEAB21865C20007999DC /* Info.plist */,
+				B88ECED1218D5B04007999DC /* AppData.swift */,
+				B88ECED3218D5F54007999DC /* QAViewController.swift */,
+				B88ECED5218D7976007999DC /* AnswerViewController.swift */,
+				B88ECED7218D86E9007999DC /* FinishedViewController.swift */,
 			);
 			path = iQuiz;
 			sourceTree = "<group>";
@@ -262,10 +274,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B88ECED8218D86E9007999DC /* FinishedViewController.swift in Sources */,
 				B88ECECE2186A053007999DC /* QuizCell.swift in Sources */,
+				B88ECED6218D7976007999DC /* AnswerViewController.swift in Sources */,
 				B88ECEA221865C20007999DC /* ViewController.swift in Sources */,
 				B88ECED02186C8BD007999DC /* Quiz.swift in Sources */,
 				B88ECEA021865C20007999DC /* AppDelegate.swift in Sources */,
+				B88ECED4218D5F54007999DC /* QAViewController.swift in Sources */,
+				B88ECED2218D5B04007999DC /* AppData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

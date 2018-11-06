@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var TableView: UITableView!
+    var appdata = AppData.shared
     
     @IBAction func Settings(_ sender: Any) {
         let alert = UIAlertController(title: "Alert!", message: "Check Back for Settings!", preferredStyle: .alert)
@@ -24,29 +25,32 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        quizzes = populateQuizzes()
+        populateQuizzes()
         TableView.delegate = self
         TableView.dataSource = self
         
     }
     
-    func populateQuizzes() -> [Quiz] {
-        var temp: [Quiz] = []
+    func populateQuizzes() {
         
-        let q1 = Quiz(image: UIImage(named: "football.png")!, title: "Sports", description: "Test your knowledge on sports!")
-        let q2 = Quiz(image: UIImage(named: "car.png")!, title: "Cars", description: "Test your knowledge on cars!")
-        let q3 = Quiz(image: UIImage(named: "music.png")!, title: "Music", description: "Test your knowledge on music!")
+        for (i, _) in appdata.titles.enumerated() {
+            let newQuiz = Quiz(image: UIImage(named: appdata.images[i])!,
+                               title:appdata.titles[i],
+                               description:appdata.descr[i])
+            quizzes.append(newQuiz)
+        }
         
-        temp.append(q1)
-        temp.append(q2)
-        temp.append(q3)
-        
-        return temp
     }
 
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        appdata.topicIdx = indexPath.row
+        print(appdata.topicIdx);
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return quizzes.count;
     }
