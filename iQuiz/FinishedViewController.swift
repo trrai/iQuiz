@@ -11,7 +11,7 @@ import UIKit
 class FinishedViewController: UIViewController {
     
     var correctAnswers:Int?
-    var questionSet: [String] = []
+    var questionSetCount:Int?
     
     @IBOutlet weak var statsLabel: UILabel!
     @IBOutlet weak var resultLabel: UILabel!
@@ -20,7 +20,7 @@ class FinishedViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let dec:Double = (Double(correctAnswers!) / Double(questionSet.count))
+        let dec:Double = (Double(correctAnswers!) / Double(questionSetCount!))
         if(dec == 1){
             resultLabel.text = "Perfect!"
         }else if(dec > 0.5){
@@ -29,7 +29,7 @@ class FinishedViewController: UIViewController {
             resultLabel.text = "Horrible!"
         }
         
-        statsLabel.text = "\(correctAnswers!) / \(questionSet.count)"
+        statsLabel.text = "\(correctAnswers!) / \(questionSetCount!)"
     }
     
 

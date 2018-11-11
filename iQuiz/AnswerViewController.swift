@@ -15,7 +15,7 @@ class AnswerViewController: UIViewController {
     var answerText:String?
     var qIndex:Int?
     var correctAnswers:Int?
-    var questionSet: [String] = []
+    var questionSetCount: Int?
     @IBOutlet weak var result: UILabel!
     @IBOutlet weak var question: UILabel!
     @IBOutlet weak var answer: UILabel!
@@ -31,12 +31,12 @@ class AnswerViewController: UIViewController {
     }
     
     @IBAction func next(_ sender: Any) {
-        if(qIndex! < questionSet.count){
+        if(qIndex! < questionSetCount!){
         performSegue(withIdentifier: "nextQuestionSegue", sender: self)
         }else{
             performSegue(withIdentifier: "finishedSegue", sender: self)
             print("QUIZ FINISHED!")
-            print("Result: \(correctAnswers!) out of \(questionSet.count)")
+            print("Result: \(correctAnswers!) out of \(questionSetCount!)")
         }
     }
     
@@ -56,7 +56,7 @@ class AnswerViewController: UIViewController {
         }else{
             guard let secondVC = segue.destination as? FinishedViewController else {return}
             secondVC.correctAnswers = correctAnswers!;
-            secondVC.questionSet = questionSet;
+            secondVC.questionSetCount = questionSetCount!;
         }
     }
     

@@ -7,12 +7,53 @@
 
 import UIKit
 
+
+//class quizDataQuestion {
+//    let text : String
+//    let answer : String
+//    let answers : [String]
+//
+//    init(text: String, answer: String, answers: [String]) {
+//        self.text = text
+//        self.answer = answer
+//        self.answers = answers
+//    }
+//}
+//
+//class quizData{
+//    let title : String
+//    let desc : String
+//    let questions : [quizDataQuestion]
+//
+//    init(title:String, desc:String, questions: [quizDataQuestion]){
+//        self.title = title
+//        self.desc = desc
+//        self.questions = questions
+//    }
+//}
+
 class AppData: NSObject {
+    
     static let shared = AppData()
     
-    open var titles: [String] = ["Sports", "Cars", "Music"]
+    public struct quiz : Decodable{
+        let text : String
+        let answer : String
+        let answers : [String]
+    }
+    
+    public struct quizJSON : Decodable {
+        let title : String
+        let desc : String
+        let questions : [quiz]
+        
+    }
+    
+    open var quizzes = [quizJSON]()
+
     open var images: [String] = ["football.png", "car.png", "music.png"]
-    open var descr: [String] = ["Test your knowledge on sports!", "Test your knowledge on cars!", "Test your knowledge on music!"]
+
+    
     open var topicIdx = 0
     
     open var sportsQuestions: [String] = ["How many superbowls have the Seahawks won?",

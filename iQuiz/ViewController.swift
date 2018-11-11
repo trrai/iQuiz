@@ -25,22 +25,46 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        populateQuizzes()
         TableView.delegate = self
         TableView.dataSource = self
-        
+        getData()
     }
     
-    func populateQuizzes() {
+    func getData(){
+
+        guard let jsonUrlString = URL(string:"http://tednewardsandbox.site44.com/questions.json")
+            else { return }
         
-        for (i, _) in appdata.titles.enumerated() {
-            let newQuiz = Quiz(image: UIImage(named: appdata.images[i])!,
-                               title:appdata.titles[i],
-                               description:appdata.descr[i])
-            quizzes.append(newQuiz)
-        }
-        
+        URLSession.shared.dataTask(with: jsonUrlString) { (data
+            , response
+            , error) in
+            
+            guard let data = data else {return}
+            
+            do{
+                let quizResponse = try JSONDecoder().decode([AppData.quizJSON].self, from: data)
+                
+                AppData.shared.quizzes = quizResponse;
+                
+                for quiz in quizResponse{
+                    let newQuiz = Quiz(image: UIImage(named: self.appdata.images[0])!,
+                        title:quiz.title,
+                    description:quiz.desc)
+                    
+                    self.quizzes.append(newQuiz)
+                    
+                }
+                DispatchQueue.main.async {
+                    self.TableView.reloadData()
+                }
+
+            } catch let JSONerr{
+                print(JSONerr)
+            }
+            
+            }.resume()
     }
+    
 
 }
 
