@@ -30,6 +30,20 @@ class ViewController: UIViewController {
         getData()
     }
     
+    func loadQuizzes(quizzes : [AppData.quizJSON]){
+        for quiz in quizzes{
+            let newQuiz = Quiz(image: UIImage(named: self.appdata.images[0])!,
+                               title:quiz.title,
+                               description:quiz.desc)
+            
+            self.quizzes.append(newQuiz)
+            
+        }
+        DispatchQueue.main.async {
+            self.TableView.reloadData()
+        }
+    }
+    
     func getData(){
 
         guard let jsonUrlString = URL(string:"http://tednewardsandbox.site44.com/questions.json")
@@ -39,24 +53,36 @@ class ViewController: UIViewController {
             , response
             , error) in
             
-            guard let data = data else {return}
             
+
             do{
-                let quizResponse = try JSONDecoder().decode([AppData.quizJSON].self, from: data)
                 
-                AppData.shared.quizzes = quizResponse;
+                guard error == nil else {
+                    
+                    if let local = UserDefaults.standard.value(forKey:"quizStorage") as? Data {
+                        
+                        let localData = try PropertyListDecoder().decode([AppData.quizJSON].self, from: local)
+                        
+                        AppData.shared.quizzes = localData
+                        
+                        self.loadQuizzes(quizzes: localData)
+                        
+                    }
+                    print("There was a network error! Loading from local storage.")
+                    return
+                }
+
+                guard let data = data else {return}
                 
-                for quiz in quizResponse{
-                    let newQuiz = Quiz(image: UIImage(named: self.appdata.images[0])!,
-                        title:quiz.title,
-                    description:quiz.desc)
-                    
-                    self.quizzes.append(newQuiz)
-                    
-                }
-                DispatchQueue.main.async {
-                    self.TableView.reloadData()
-                }
+
+                let quizResponse = try? JSONDecoder().decode([AppData.quizJSON].self, from: data)
+                
+                UserDefaults.standard.set(try? PropertyListEncoder().encode(quizResponse), forKey:"quizStorage")
+                
+                
+                AppData.shared.quizzes = quizResponse!;
+                
+                self.loadQuizzes(quizzes: quizResponse!)
 
             } catch let JSONerr{
                 print(JSONerr)

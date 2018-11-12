@@ -36,13 +36,13 @@ class AppData: NSObject {
     
     static let shared = AppData()
     
-    public struct quiz : Decodable{
+    public struct quiz : Codable{
         let text : String
         let answer : String
         let answers : [String]
     }
     
-    public struct quizJSON : Decodable {
+    public struct quizJSON : Codable {
         let title : String
         let desc : String
         let questions : [quiz]
