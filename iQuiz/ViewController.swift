@@ -14,8 +14,20 @@ class ViewController: UIViewController {
     var appdata = AppData.shared
     
     @IBAction func Settings(_ sender: Any) {
-        let alert = UIAlertController(title: "Alert!", message: "Check Back for Settings!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
+        let alert = UIAlertController(title: "Data Connection", message: "Enter the linke for your JSON data here: ", preferredStyle: .alert)
+        
+    
+        alert.addTextField { (textField) in
+            textField.placeholder = "Link"
+        }
+    
+        alert.addAction(UIAlertAction(title: "Load", style: .default, handler: { [weak alert] (_) in
+            let linkText = alert?.textFields![0]
+            print(linkText!.text!)
+            self.appdata.jsonLink = linkText!.text!
+            self.getData()
+        }))
+        
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -31,13 +43,17 @@ class ViewController: UIViewController {
     }
     
     func loadQuizzes(quizzes : [AppData.quizJSON]){
+        var i = 0
         for quiz in quizzes{
-            let newQuiz = Quiz(image: UIImage(named: self.appdata.images[0])!,
+            let newQuiz = Quiz(image: UIImage(named: self.appdata.images[i])!,
                                title:quiz.title,
                                description:quiz.desc)
             
             self.quizzes.append(newQuiz)
             
+            if(i+1 < self.appdata.images.count){
+                i+=1
+            }
         }
         DispatchQueue.main.async {
             self.TableView.reloadData()
@@ -45,8 +61,8 @@ class ViewController: UIViewController {
     }
     
     func getData(){
-
-        guard let jsonUrlString = URL(string:"http://tednewardsandbox.site44.com/questions.json")
+        
+        guard let jsonUrlString = URL(string: appdata.jsonLink)
             else { return }
         
         URLSession.shared.dataTask(with: jsonUrlString) { (data
@@ -56,6 +72,8 @@ class ViewController: UIViewController {
             
 
             do{
+                
+                self.quizzes = []
                 
                 guard error == nil else {
                     
@@ -80,8 +98,8 @@ class ViewController: UIViewController {
                 UserDefaults.standard.set(try? PropertyListEncoder().encode(quizResponse), forKey:"quizStorage")
                 
                 
-                AppData.shared.quizzes = quizResponse!;
-                
+                AppData.shared.quizzes = quizResponse ?? [];
+                print(quizResponse ?? "")
                 self.loadQuizzes(quizzes: quizResponse!)
 
             } catch let JSONerr{

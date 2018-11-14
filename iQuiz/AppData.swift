@@ -49,6 +49,8 @@ class AppData: NSObject {
         
     }
     
+    open var jsonLink = "http://tednewardsandbox.site44.com/questions.json"
+    
     open var quizzes = [quizJSON]()
 
     open var images: [String] = ["football.png", "car.png", "music.png"]
